@@ -1,4 +1,9 @@
 # ### `eval_block`
+
+def eval_block(*args, &prc)
+  raise "NO BLOCK GIVEN" unless block_given?
+  prc.call(*args)
+end
 #
 # Write an `eval_block` method that takes some arguments and a block. It should
 # call the block, passing all the arguments to the block at once (individually,
