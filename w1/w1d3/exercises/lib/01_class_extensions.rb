@@ -21,7 +21,10 @@ class String
     alphabet = ("a".."z").to_a
     result = ""
     self.chars do |ch|
-      if alphabet.include?(ch)
+      if ch >= "A" && ch <= "Z"
+        pos = (alphabet.index(ch.downcase) + shift) % 26
+        result << alphabet[pos].upcase
+      elsif ch >= "a" && ch <= "z"
         pos = (alphabet.index(ch) + shift) % 26
         result << alphabet[pos]
       else
@@ -31,20 +34,20 @@ class String
     result
   end
 
-  def caesar(shift)
-    #alternate using next
-    alphabet = ("a".."z").to_a
-    result = ""
-    self.chars do |ch|
-      if alphabet.include?(ch)
-        shift.times { ch.next! }
-        result << ch[-1]
-      else
-        result << ch
-      end
-    end
-    result
-  end
+  # def caesar(shift)
+  #   #alternate using next
+  #   alphabet = ("a".."z").to_a
+  #   result = ""
+  #   self.chars do |ch|
+  #     if alphabet.include?(ch)
+  #       shift.times { ch.next! }
+  #       result << ch[-1]
+  #     else
+  #       result << ch
+  #     end
+  #   end
+  #   result
+  # end
 end
 
 # Hash: Difference
@@ -62,6 +65,14 @@ end
 
 class Hash
   def difference(other_hash)
+    result = {}
+    self.keys.each do |key|
+      result[key] = self[key] unless other_hash.has_key?(key)
+    end
+    other_hash.keys.each do |key|
+      result[key] = other_hash[key] unless self.has_key?(key)
+    end
+    result
   end
 end
 
@@ -124,6 +135,18 @@ end
 
 class Fixnum
   def stringify(base)
+    return "0" if self == 0
+    powers = %w[0 1 2 3 4 5 6 7 8 9 a b c d e f]
+    result = ""
+    left = self
+
+    while left > 0
+      next_num = left % base
+      result = powers[next_num] + result
+      left = (left - next_num) / base
+    end
+
+    result
   end
 end
 
