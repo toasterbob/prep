@@ -5,6 +5,7 @@
 
 class Array
   def sum
+    self.inject(0, &:+)
   end
 end
 
@@ -16,9 +17,15 @@ end
 
 class Array
   def square!
+    self.map! { |num| num * num }
   end
 
   def square
+    result = []
+    self.each do |num|
+      result << num * num
+    end
+    result
   end
 end
 
@@ -36,6 +43,11 @@ end
 
 class Array
   def my_uniq
+    result = []
+    each do |el|
+      result << el unless result.include?(el)
+    end
+    result
   end
 end
 
@@ -57,7 +69,15 @@ end
 
 class Array
   def two_sum
+    result = []
+    (0..(length - 2)).each do |i|
+      ((i + 1)..(length - 1)).each do |j|
+        result << [i, j] if self[i] + self[j] == 0
+      end
+    end
+    result
   end
+
 end
 
 # Median
@@ -69,6 +89,14 @@ end
 
 class Array
   def median
+    return nil if count == 0
+    self.sort!
+    mid = count / 2
+    if count % 2 == 0
+      (self[mid - 1] + self[mid])/2.0
+    else
+      self[mid]
+    end
   end
 end
 
@@ -121,6 +149,15 @@ end
 
 class Array
   def my_transpose
+    transposed = []
+    self.length.times do |i|
+      container = []
+      self[0].length.times do |j|
+        container << self[j][i]
+      end
+      transposed << container 
+    end
+    transposed
   end
 end
 

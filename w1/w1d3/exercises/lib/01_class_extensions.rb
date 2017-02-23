@@ -18,6 +18,32 @@
 
 class String
   def caesar(shift)
+    alphabet = ("a".."z").to_a
+    result = ""
+    self.chars do |ch|
+      if alphabet.include?(ch)
+        pos = (alphabet.index(ch) + shift) % 26
+        result << alphabet[pos]
+      else
+        result << ch
+      end
+    end
+    result
+  end
+
+  def caesar(shift)
+    #alternate using next
+    alphabet = ("a".."z").to_a
+    result = ""
+    self.chars do |ch|
+      if alphabet.include?(ch)
+        shift.times { ch.next! }
+        result << ch[-1]
+      else
+        result << ch
+      end
+    end
+    result
   end
 end
 
