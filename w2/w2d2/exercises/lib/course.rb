@@ -38,7 +38,7 @@
 #
 # ## And some extras:
 # * Each course should also take a set of days of the week (`:mon`,
-#   `:tue`, ...), plus a time block (assume each day is broken into 8
+#   `:tue`, ...), plus a time time_block (assume each day is broken into 8
 #   consecutive time blocks). So a course could meet
 #   `[:mon, :wed, :fri]` during block #1.
 #     * Update your `#initialize` method to also take a time block and
@@ -50,5 +50,26 @@
 #     * May want to write a `Student#has_conflict?` method to help.
 
 class Course
+  attr_reader :name, :department, :credits, :students, :days, :time_block
+
+  def initialize(name, department, credits, days, time_block)
+    @name = name
+    @department = department
+    @credits = credits
+    @days = days
+    @time_block = time_block
+    @students = []
+  end
+
+  def add_student(student)
+    student.enroll(self)
+  end
+
+  def conflicts_with?(course2)
+    return false if self.time_block != course2.time_block
+    self.days.any? do |day|
+      course2.days.include?(day)
+    end
+  end
 
 end
