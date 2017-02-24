@@ -29,6 +29,52 @@
 # all the items of `set1` that aren't in `set2`.
 
 class MyHashSet
+  attr_accessor :store
+
+  def initialize
+    @store = {}
+  end
+
+  def insert(el)
+    @store[el] = true
+  end
+
+  def include?(el)
+    @store[el]
+  end
+
+  def delete(el)
+    if @store[el]
+      @store[el] = false
+      true
+    else
+      false
+    end
+  end
+
+  def to_a
+    @store.keys
+  end
+
+  def union(set2)
+    new_set = MyHashSet.new
+    @store.keys.each { |key| new_set.insert(key) }
+    set2.store.keys.each { |key| new_set.insert(key) }
+    new_set
+  end
+
+  def intersect(set2)
+    new_set = MyHashSet.new
+    @store.keys.each { |key| new_set.insert(key) if set2.include?(key)}
+    new_set
+  end
+
+  def minus(set2)
+    new_set = MyHashSet.new
+    @store.keys.each { |key| new_set.insert(key) unless set2.include?(key)}
+    new_set
+  end
+
 end
 
 # Bonus

@@ -26,9 +26,11 @@ class Dictionary
   end
 
   def printable
-    @entries.each do |key, definition|
-      
+    results = []
+    @entries.keys.sort.each do |key|
+      results << "[#{key}] \"#{@entries[key]}\""
     end
+    results.join("\n")
   end
 
 end
