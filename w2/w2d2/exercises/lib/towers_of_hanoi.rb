@@ -40,5 +40,56 @@
 # methods named above.
 
 class TowersOfHanoi
+  attr_reader :towers
 
+  def initialize
+    @towers = Array.new(3, Array.new)
+    @towers[0] = [3, 2, 1]
+  end
+
+  def move(from_tower, to_tower)
+    moved_piece = @towers[from_tower].pop
+    @towers[to_tower] += [moved_piece]
+  end
+
+  def valid_move?(from_tower, to_tower)
+
+    return false unless [from_tower, to_tower].all? { |i| i.between?(0, 2) }
+    return false if @towers[from_tower].empty?
+
+    moved_piece = @towers[from_tower].last
+    @towers[to_tower].empty? || moved_piece < @towers[to_tower].last
+
+  end
+
+  def won?
+    @towers[1] == [3, 2, 1] || @towers[2] == [3, 2, 1]
+  end
+
+  def play
+    until won?
+      self.render
+      puts "Please enter your move. i.e 0, 2"
+      moves = gets.chomp
+      moves = moves.split(",").map(&:to_i)
+      if valid_move?(moves[0], moves[1])
+        move(moves[0], moves[1])
+      else
+        puts "invalid move"
+      end
+    end
+    self.render
+    puts "You won!"
+  end
+
+  def render
+    puts 'Tower 0:  ' + @towers[0].join('  ') + "\n" +
+         'Tower 1:  ' + @towers[1].join('  ') + "\n" +
+         'Tower 2:  ' + @towers[2].join('  ') + "\n"
+  end
+
+end
+
+if $PROGRAM_NAME == __FILE__
+  TowersOfHanoi.new().play
 end
