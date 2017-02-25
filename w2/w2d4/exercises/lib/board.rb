@@ -25,7 +25,7 @@ class Board
     return @grid[0][2] if @grid[0][2] && [@grid[0][2], @grid[1][1], @grid[2][0]].uniq.length == 1
     nil
   end
-
+ 
   def over?
     @grid.flatten.none? { |pos| pos.nil? } || winner
   end
