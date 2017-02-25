@@ -1,7 +1,7 @@
 class ComputerPlayer
 
-  attr_reader :name, :board
-  attr_accessor :mark
+  attr_reader :name
+  attr_accessor :mark, :board, :other_mark
 
   def initialize(name = "computer")
     @name = name
