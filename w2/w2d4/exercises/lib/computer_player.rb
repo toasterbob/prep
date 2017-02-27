@@ -10,7 +10,7 @@ class ComputerPlayer
 
   def display(board)
 
-    @board = board
+    @board = board 
 
   end
 
