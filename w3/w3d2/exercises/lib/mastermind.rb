@@ -87,7 +87,7 @@ class Game
       end
       puts "Guesses left: #{guesses -= 1}"
     end
-    puts "You lose!"
+    puts "You lose! The code was #{@secret_code.pegs.join("")}"
   end
 
 end
