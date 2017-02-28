@@ -57,8 +57,41 @@ class Code
 end
 
 class Game
+
   attr_reader :secret_code
-  def initialize(secret_code)
+
+  def initialize(secret_code = Code.random)
     @secret_code = secret_code
   end
+
+  def get_guess
+    puts "Please enter a guess (i.e. borg)"
+    input = gets.chomp
+    Code.parse(input)
+  end
+
+  def display_matches(input)
+    puts "exact matches: #{exact_matches(input)}"
+    puts "near matches: #{near_matches(input)}"
+  end
+
+  def play
+    guesses = 10
+    prompt = You lose!
+    while guesses > 0
+      input = self.get_guess
+      display_matches(input)
+      if exact_matches(input) == 4
+        prompt = "You win!"
+        break 
+      end
+      puts "Guesses left: #{guesses -= 1}"
+    end
+    prompt
+  end
+
+end
+
+if __FILE__ == $PROGRAM_NAME
+  Game.new.play
 end
