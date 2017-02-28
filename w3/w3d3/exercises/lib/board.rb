@@ -28,6 +28,6 @@ class Board
     @grid[x][y] = val
   end
 
-  
+   
 
 end
