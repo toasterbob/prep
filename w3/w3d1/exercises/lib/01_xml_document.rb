@@ -6,8 +6,10 @@ class XmlDocument
 
   def method_missing(method_name, *args, &blk)
     if block_given?
-      result = "<#{tabspace}#{method_name}>#{newline}"
+      result = "#{tabspace}<#{method_name}>#{newline}"
+      indent
       result << "#{blk.call}"
+      unindent
       result << "#{tabspace}</#{method_name}>#{newline}"
     else
       if args.first.nil?
@@ -19,6 +21,9 @@ class XmlDocument
     end
     result
   end
+
+  private
+  attr_reader :indent_depth
 
   def indent
     @indent_depth += 1 if @indent
