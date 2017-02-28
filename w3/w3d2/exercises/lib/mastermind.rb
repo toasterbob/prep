@@ -26,16 +26,39 @@ class Code
     Code.new(results)
   end
 
-  def exact_matches
+  def exact_matches(code)
+    number_matches = 0
+    4.times do |i|
+      number_matches += 1 if code[i].downcase == @pegs[i].downcase
+    end
+    number_matches
+  end
 
+  def near_matches(code)
+    number_matches = 0
+    code.pegs.uniq.each do |color|
+      number_matches += [code.pegs.count(color), @pegs.count(color)].min
+    end
+    number_matches - exact_matches(code)
   end
 
   def [](num)
     @pegs[num]
   end
 
+  def ==(code)
+    return false if code.class != Code
+    4.times do |i|
+      return false if code[i].downcase != @pegs[i].downcase
+    end
+    true
+  end
+
 end
 
 class Game
   attr_reader :secret_code
+  def initialize(secret_code)
+    @secret_code = secret_code
+  end
 end
