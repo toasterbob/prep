@@ -65,29 +65,29 @@ class Game
   end
 
   def get_guess
+
+    puts "R = Red, G = Green, B = Blue, Y = Yellow, O = Orange, P = Purple"
     puts "Please enter a guess (i.e. borg)"
     input = gets.chomp
     Code.parse(input)
   end
 
   def display_matches(input)
-    puts "exact matches: #{exact_matches(input)}"
-    puts "near matches: #{near_matches(input)}"
+    puts "exact matches: #{secret_code.exact_matches(input)}"
+    puts "near matches: #{secret_code.near_matches(input)}"
   end
 
   def play
     guesses = 10
-    prompt = You lose!
     while guesses > 0
       input = self.get_guess
       display_matches(input)
-      if exact_matches(input) == 4
-        prompt = "You win!"
-        break 
+      if secret_code.exact_matches(input.pegs) == 4
+        return "You win!"
       end
       puts "Guesses left: #{guesses -= 1}"
     end
-    prompt
+    puts "You lose!"
   end
 
 end
