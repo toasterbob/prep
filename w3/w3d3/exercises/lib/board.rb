@@ -10,5 +10,24 @@ class Board
     @grid = grid
   end
 
+  def count
+    grid.flatten.count(:s)
+  end
+
+  def empty?(pos)
+    !self[pos]
+  end
+
+  def [](pos)
+    x, y = pos
+    @grid[x][y]
+  end
+
+  def []=(pos, val)
+    x, y = pos
+    @grid[x][y] = val
+  end
+
+  
 
 end
