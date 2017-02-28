@@ -8,8 +8,8 @@ class Code
     @pegs = pegs
   end
 
-  def parse
-
+  def self.parse(input)
+    
   end
 
   def self.random
