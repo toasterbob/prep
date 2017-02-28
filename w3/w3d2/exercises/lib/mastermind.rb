@@ -9,7 +9,12 @@ class Code
   end
 
   def self.parse(input)
-    
+    arr = []
+    input.chars do |ch|
+      raise "not a color" unless PEGS.keys.include?(ch.upcase)
+      arr << ch.upcase
+    end
+    Code.new(arr)
   end
 
   def self.random
@@ -19,6 +24,14 @@ class Code
       results << colors.sample
     end
     Code.new(results)
+  end
+
+  def exact_matches
+
+  end
+
+  def [](num)
+    @pegs[num]
   end
 
 end
