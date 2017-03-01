@@ -13,7 +13,7 @@ class Hangman
   end
 
   def take_turn
-    guess = @guesser.guess
+    guess = @guesser.guess(board)
     indices = @referee.check_guess(guess)
     self.update_board(indices, guess)
     @guesser.handle_response
@@ -54,7 +54,7 @@ class HumanPlayer
 end
 
 class ComputerPlayer
-  attr_reader :secret_word
+  attr_reader :secret_word, :length
 
   def initialize(dictionary)
     @dictionary = dictionary
@@ -66,11 +66,13 @@ class ComputerPlayer
   end
 
   def register_secret_length(length)
-
+    @length = length
   end
 
-  def guess(guess)
-
+  def guess(board)
+    words = @dictionary.select { |word| word.length == @length }
+    word = words.sample
+    word[rand(length)]
   end
 
   def check_guess(letter)
@@ -81,7 +83,7 @@ class ComputerPlayer
     indices
   end
 
-  def handle_response
+  def handle_response(guess, board)
 
   end
 end
