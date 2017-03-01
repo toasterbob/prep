@@ -14,7 +14,15 @@ class Hangman
 
   def take_turn
     guess = @guesser.guess
-    @referee.check_guess(guess)
+    indices = @referee.check_guess(guess)
+    self.update_board(indices, guess)
+
+  end
+
+  def update_board(indices, guess)
+    indices.each do |index|
+      @board[index] = guess
+    end
   end
 
 end
