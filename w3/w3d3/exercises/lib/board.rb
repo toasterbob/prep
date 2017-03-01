@@ -2,6 +2,13 @@ class Board
 
   attr_reader :grid
 
+  DISPLAY_HASH = {
+    nil => " ",
+    :s => " ",
+    :x => "x",
+    :h => "h"
+  }
+
   def self.default_grid
     Array.new(10) { Array.new(10) }
   end
@@ -57,6 +64,19 @@ class Board
     count.times { place_random_ship }
   end
 
+  def in_range?(pos)
+    pos.all? { |x| x.between?(0, grid.length - 1) }
+  end
 
+  def display
+    header = (0..9).to_a.join("  ")
+    puts "  #{header}"
+    grid.each_with_index { |row, i| display_row(row, i) }
+  end
+
+  def display_row(row, i)
+    chars = row.map { |el| DISPLAY_HASH[el] }.join("  ")
+    puts "#{i} #{chars}"
+  end
 
 end

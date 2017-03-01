@@ -5,7 +5,13 @@ class BattleshipGame
 
   attr_reader :board, :player
 
-  def initialize(player = HumanPlayer.new("Mark"), board = Board.new.randomize)
+  def random_board
+    random_b = Board.new
+    random_b.randomize
+    random_b
+  end
+
+  def initialize(player = HumanPlayer.new("Mark"), board = random_board)
     @board = board
     @player = player
     @hit = false
@@ -14,11 +20,12 @@ class BattleshipGame
   def attack(pos)
     if board[pos] == :s
       @hit = true
+      board[pos] = :h
     else
       @hit = false
+      board[pos] = :x
     end
 
-    board[pos] = :x
   end
 
   def count
@@ -45,9 +52,13 @@ class BattleshipGame
     puts "There are #{count} ships remaining."
   end
 
+  def hit?
+    @hit
+
+  end
 
   def play
-    play_turn until game_over?
+    play_turn until board.won?
     declare_winner
   end
 
@@ -55,15 +66,15 @@ class BattleshipGame
     pos = nil
 
     until valid_play?(pos)
-      display_status
       pos = player.get_play
     end
 
     attack(pos)
+    display_status
   end
 
   def valid_play?(pos)
-    pos.is_a?(Array) && board.in_range?(pos)
+    pos.is_a?(Array) && board.in_range?(pos) && board[pos] != :h  && board[pos] != :x
   end
 
 end
