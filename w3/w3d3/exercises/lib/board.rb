@@ -30,10 +30,11 @@ class Board
   end
 
   def place_random_ship
+    size = grid.length
     raise "board is full" if full?
-    pos = [rand(10), rand(10)]
+    pos = [rand(size), rand(size)]
     until empty?(pos)
-      pos = [rand(10), rand(10)]
+      pos = [rand(size), rand(size)]
     end
     self[pos] = :s
   end
