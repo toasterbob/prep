@@ -1,11 +1,14 @@
 class Hangman
   attr_reader :guesser, :referee, :board
 
-  def initialize(guessing_player, checking_player)
-    @guesser = guessing_player
-    @referee = checking_player
+  def initialize(players)
+    @guesser = players[:guesser]
+    @referee = players[:referee]
   end
 
+  def setup
+    
+  end
 
 end
 
