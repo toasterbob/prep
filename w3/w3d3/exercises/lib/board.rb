@@ -51,7 +51,11 @@ class Board
   def []=(pos, val)
     x, y = pos
     @grid[x][y] = val
-  end 
+  end
+
+  def randomize(count = 5)
+    count.times { place_random_ship }
+  end
 
 
 

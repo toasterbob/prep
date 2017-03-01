@@ -5,7 +5,7 @@ class BattleshipGame
 
   attr_reader :board, :player
 
-  def initialize(player = HumanPlayer.new("Mark"), board = Board.new)
+  def initialize(player = HumanPlayer.new("Mark"), board = Board.new.randomize)
     @board = board
     @player = player
     @hit = false
@@ -34,9 +34,17 @@ class BattleshipGame
     self.attack(move)
   end
 
-  def display_status
-
+  def declare_winner
+    puts "Congratulations. You win!"
   end
+
+  def display_status
+    system("clear")
+    board.display
+    puts "It's a hit!" if hit?
+    puts "There are #{count} ships remaining."
+  end
+
 
   def play
     play_turn until game_over?
