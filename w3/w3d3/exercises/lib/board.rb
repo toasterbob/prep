@@ -14,8 +14,28 @@ class Board
     grid.flatten.count(:s)
   end
 
-  def empty?(pos)
-    !self[pos]
+  def empty?(pos = nil)
+    if pos
+      self[pos].nil?
+    else
+      self.count == 0
+    end
+  end
+
+  def full?
+    grid.flatten.each do |pos|
+      return false if pos.nil?
+    end
+    true
+  end
+
+  def place_random_ship
+    raise "board is full" if full?
+    pos = [rand(10), rand(10)]
+    until empty?(pos)
+      pos = [rand(10), rand(10)]
+    end
+    self[pos] = :s
   end
 
   def [](pos)
@@ -28,6 +48,6 @@ class Board
     @grid[x][y] = val
   end
 
-   
+
 
 end
