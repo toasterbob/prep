@@ -34,4 +34,32 @@ class BattleshipGame
     self.attack(move)
   end
 
+  def display_status
+
+  end
+
+  def play
+    play_turn until game_over?
+    declare_winner
+  end
+
+  def play_turn
+    pos = nil
+
+    until valid_play?(pos)
+      display_status
+      pos = player.get_play
+    end
+
+    attack(pos)
+  end
+
+  def valid_play?(pos)
+    pos.is_a?(Array) && board.in_range?(pos)
+  end
+
+end
+
+if __FILE__ == $PROGRAM_NAME
+  BattleshipGame.new.play
 end
