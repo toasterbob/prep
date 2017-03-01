@@ -111,5 +111,5 @@ class ComputerPlayer
 
   def candidate_words
     @dictionary
-  end
+  end 
 end
