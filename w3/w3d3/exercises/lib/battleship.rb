@@ -22,7 +22,11 @@ class BattleshipGame
   end
 
   def count
-    board.count 
+    board.count
+  end
+
+  def game_over?
+    board.won? 
   end
 
 
