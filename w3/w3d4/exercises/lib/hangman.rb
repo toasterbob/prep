@@ -4,6 +4,7 @@ class Hangman
   def initialize(players)
     @guesser = players[:guesser]
     @referee = players[:referee]
+    @num_remaining_guesses = 8
   end
 
   def setup
@@ -16,6 +17,7 @@ class Hangman
     guess = @guesser.guess(board)
     indices = @referee.check_guess(guess)
     self.update_board(indices, guess)
+    @num_remaining_guesses -= 1 if indices.empty?
     @guesser.handle_response(guess, indices)
   end
 
@@ -23,6 +25,30 @@ class Hangman
     indices.each do |index|
       @board[index] = guess
     end
+  end
+
+  def play
+    setup
+
+    while @num_remaining_guesses > 0
+      p @board
+      take_turn
+
+      if won?
+        p @board
+        puts "Guesser wins!"
+        return
+      end
+    end
+
+    puts "Word was: #{@referee.require_secret}"
+    puts "Guesser loses!"
+
+    nil
+  end
+
+  def won?
+    @board.all?
   end
 
 end
