@@ -16,7 +16,7 @@ class Hangman
     guess = @guesser.guess
     indices = @referee.check_guess(guess)
     self.update_board(indices, guess)
-
+    @guesser.handle_response
   end
 
   def update_board(indices, guess)
