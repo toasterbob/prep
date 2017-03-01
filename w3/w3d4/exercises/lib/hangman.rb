@@ -56,6 +56,11 @@ end
 class ComputerPlayer
   attr_reader :secret_word, :length
 
+  def self.player_with_dict_file(dict_file_name)
+    ComputerPlayer.new(File.readlines(dict_file_name).map(&:chomp))
+  end
+
+
   def initialize(dictionary)
     @dictionary = dictionary
   end
@@ -111,5 +116,25 @@ class ComputerPlayer
 
   def candidate_words
     @dictionary
-  end 
+  end
+end
+
+
+if __FILE__ == $PROGRAM_NAME
+  # use print so that user input happens on the same line
+  print "Guesser: Computer (yes/no)? "
+  if gets.chomp == "yes"
+    guesser = ComputerPlayer.player_with_dict_file("dictionary.txt")
+  else
+    guesser = HumanPlayer.new
+  end
+
+  print "Referee: Computer (yes/no)? "
+  if gets.chomp == "yes"
+    referee = ComputerPlayer.player_with_dict_file("dictionary.txt")
+  else
+    referee = HumanPlayer.new
+  end
+
+  Hangman.new({guesser: guesser, referee: referee}).play
 end
