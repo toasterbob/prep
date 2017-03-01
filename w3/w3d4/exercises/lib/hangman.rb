@@ -16,7 +16,7 @@ class Hangman
     guess = @guesser.guess(board)
     indices = @referee.check_guess(guess)
     self.update_board(indices, guess)
-    @guesser.handle_response
+    @guesser.handle_response(guess, indices)
   end
 
   def update_board(indices, guess)
@@ -67,12 +67,15 @@ class ComputerPlayer
 
   def register_secret_length(length)
     @length = length
+    @dictionary.select! { |word| word.length == @length }
   end
 
   def guess(board)
-    words = @dictionary.select { |word| word.length == @length }
-    word = words.sample
-    word[rand(length)]
+
+    all_words = @dictionary.join("")
+    letter_hash 
+
+
   end
 
   def check_guess(letter)
@@ -83,7 +86,14 @@ class ComputerPlayer
     indices
   end
 
-  def handle_response(guess, board)
+  def handle_response(guess, indices)
+    @dictionary.select! { |word| word.count(guess) == indices.count }
+    indices.each do |index|
+      @dictionary.select! { |word| word[index] == guess }
+    end
+  end
 
+  def candidate_words
+    @dictionary
   end
 end
