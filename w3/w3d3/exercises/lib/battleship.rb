@@ -26,8 +26,12 @@ class BattleshipGame
   end
 
   def game_over?
-    board.won? 
+    board.won?
   end
 
+  def play_turn
+    move = player.get_play
+    self.attack(move)
+  end
 
 end

@@ -4,7 +4,7 @@ class HumanPlayer
     @name = name
   end
 
-  def take_turn
+  def get_play
     puts "Please enter a coordinate.  i.e. 3,5"
     gets.chomp.split(",").map(&:to_i)
   end
