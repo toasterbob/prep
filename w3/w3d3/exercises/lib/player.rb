@@ -1,6 +1,6 @@
 class HumanPlayer
 
-  def initialize(name)
+  def initialize(name = "Bob")
     @name = name
   end
 

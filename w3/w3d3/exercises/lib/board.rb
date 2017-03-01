@@ -51,7 +51,7 @@ class Board
   def []=(pos, val)
     x, y = pos
     @grid[x][y] = val
-  end
+  end 
 
 
 
