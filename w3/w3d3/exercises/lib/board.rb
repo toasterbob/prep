@@ -39,6 +39,10 @@ class Board
     self[pos] = :s
   end
 
+  def won?
+    self.count == 0
+  end
+
   def [](pos)
     x, y = pos
     @grid[x][y]
