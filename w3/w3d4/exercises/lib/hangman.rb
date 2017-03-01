@@ -143,6 +143,12 @@ class ComputerPlayer
   def candidate_words
     @dictionary
   end
+
+  def require_secret
+    secret_word
+  end
+
+
 end
 
 
