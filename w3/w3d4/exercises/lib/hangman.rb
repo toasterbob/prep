@@ -31,7 +31,7 @@ class Hangman
     setup
 
     while @num_remaining_guesses > 0
-      p @board
+      display
       take_turn
 
       if won?
@@ -47,6 +47,18 @@ class Hangman
     nil
   end
 
+  def display
+    result = ""
+    @board.each do |letter|
+      if letter.nil?
+        result << "__ "
+      else
+        result << " #{letter} "
+      end
+    end
+    puts result
+  end
+
   def won?
     @board.all?
   end
@@ -54,28 +66,34 @@ class Hangman
 end
 
 class HumanPlayer
+  attr_reader :secret_word, :length
+
   def initialize(name = "Jimbob")
     @name = name
   end
 
   def pick_secret_word
-
+    puts "Pick the secret word: "
+    @secret_word = gets.chomp
+    @length = @secret_word.length
   end
 
   def register_secret_length(length)
 
   end
 
-  def guess
-
+  def guess(board)
+    puts "please enter your guess: "
+    guess = gets.chomp
   end
 
   def check_guess(guess)
 
   end
 
-  def handle_response
-
+  def handle_response(guess, indices)
+    puts "the letter '#{guess}' appears #{indices.length} time(s)"
+    puts
   end
 end
 
