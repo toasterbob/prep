@@ -16,7 +16,7 @@ class BattleshipGame
     @player = player
     @hit = false
   end
- 
+  
   def attack(pos)
     if board[pos] == :s
       @hit = true
