@@ -72,10 +72,26 @@ class ComputerPlayer
 
   def guess(board)
 
-    all_words = @dictionary.join("")
-    letter_hash 
+    most_common = self.letter_frequency(board)
+    most_common = most_common.sort_by { |letter, frequency| frequency }
 
+    most_common.last[0]
+  end
 
+  def letter_frequency(board)
+    letter_hash = {}
+    @dictionary.each do |word|
+      word.chars do |ch|
+        next unless ("a".."z").include?(ch.downcase)
+        next if board.include?(ch.downcase)
+        if letter_hash[ch]
+          letter_hash[ch] += 1
+        else
+          letter_hash[ch] = 1
+        end
+      end
+    end
+    letter_hash
   end
 
   def check_guess(letter)
