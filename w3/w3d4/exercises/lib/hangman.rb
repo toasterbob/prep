@@ -1,5 +1,5 @@
 class Hangman
-  attr_reader :guesser, :referee, :board
+  attr_reader :guesser, :referee, :board, :word
 
   def initialize(players)
     @guesser = players[:guesser]
@@ -7,7 +7,14 @@ class Hangman
   end
 
   def setup
-    
+    length = @referee.pick_secret_word
+    @guesser.register_secret_length(length)
+    @board = Array.new(length)
+  end
+
+  def take_turn
+    guess = @guesser.guess
+    @referee.check_guess(guess)
   end
 
 end
@@ -21,7 +28,7 @@ class HumanPlayer
 
   end
 
-  def register_secret_length
+  def register_secret_length(length)
 
   end
 
@@ -29,7 +36,7 @@ class HumanPlayer
 
   end
 
-  def check_guess
+  def check_guess(guess)
 
   end
 
@@ -50,11 +57,11 @@ class ComputerPlayer
     secret_word.length
   end
 
-  def register_secret_length
+  def register_secret_length(length)
 
   end
 
-  def guess
+  def guess(guess)
 
   end
 
