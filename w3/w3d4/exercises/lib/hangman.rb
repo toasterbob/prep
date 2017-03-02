@@ -35,7 +35,7 @@ class Hangman
       take_turn
 
       if won?
-        p @board
+        display
         puts "Guesser wins!"
         return
       end
@@ -56,6 +56,7 @@ class Hangman
         result << " #{letter} "
       end
     end
+    puts "#{@num_remaining_guesses} misses remain"
     puts result
   end
 
@@ -78,8 +79,8 @@ class HumanPlayer
     @length = @secret_word.length
   end
 
-  def register_secret_length(length)
-
+  def require_secret
+    secret_word
   end
 
   def guess(board)
@@ -88,7 +89,8 @@ class HumanPlayer
   end
 
   def check_guess(guess)
-
+    puts "Player guessed #{guess}. Please enter the positions of the letters (i.e. 0, 3).  Hit return if no letters occur."
+    gets.chomp.split(",").map { |i_str| Integer(i_str) }
   end
 
   def handle_response(guess, indices)
